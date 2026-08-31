@@ -18,7 +18,7 @@ A block diagram is not generated from geometry. The customer-facing description 
 
 ## Pin Description
 
-### `s8bg_top_psoc3_revB`
+### `CF_BGR_psoc3_revB`
 
 | Pin | Direction | Width |
 |---|---|---|
@@ -56,7 +56,7 @@ A block diagram is not generated from geometry. The customer-facing description 
 | vout_ictat | output | 1 |
 | pbias_ctat | output | 1 |
 
-### `s8bg_top`
+### `CF_BGR`
 
 | Pin | Direction | Width |
 |---|---|---|
@@ -83,7 +83,7 @@ A block diagram is not generated from geometry. The customer-facing description 
 | vpb | input | 1 |
 | vpwr | input | 1 |
 
-### `s8bg_top_psoc3_revA`
+### `CF_BGR_psoc3_revA`
 
 | Pin | Direction | Width |
 |---|---|---|
@@ -111,7 +111,7 @@ A block diagram is not generated from geometry. The customer-facing description 
 | vpb | input | 1 |
 | vpwr | input | 1 |
 
-### `s8bg_top_tspsoc`
+### `CF_BGR_tspsoc`
 
 | Pin | Direction | Width |
 |---|---|---|
