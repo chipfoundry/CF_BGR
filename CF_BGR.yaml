@@ -1,0 +1,24 @@
+info:
+  name: CF_BGR
+  description: Bandgap Reference (CF_BGR) is a ChipFoundry hard-macro blackbox on
+    SkyWater 130 nm.
+  repo: https://github.com/chipfoundry/CF_BGR
+  owner: ChipFoundry
+  license: proprietary
+  author: ChipFoundry
+  email: support@chipfoundry.io
+  version: 0.1.0
+  date: 8-31-2026
+  category: digital
+  tags:
+  - CF_BGR
+  bus: n/a
+  type: hard
+  maturity: np
+  width: '408.465'
+  height: '256.25'
+  technology: sky130
+  digital_supply_voltage: n/a
+  analog_supply_voltage: n/a
+  clock_freq_mhz: n/a
+  cell_count: '4'
