@@ -598,7 +598,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 337.375 0.01 337.515 4.2 ;
+        RECT 337.375 0 337.515 4.2 ;
     END
   END trimTC[1]
   PIN trimTC[0]
@@ -606,7 +606,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 337.005 0.01 337.145 4.2 ;
+        RECT 337.005 0 337.145 4.2 ;
     END
   END trimTC[0]
   PIN trimCurr[4]
@@ -831,10 +831,8 @@ MACRO CF_BGR
       RECT 333.385 0 333.615 256.25 ;
       RECT 333.615 4.165 333.755 256.25 ;
       RECT 333.755 0 337.005 256.25 ;
-      RECT 337.005 0 337.145 0.01 ;
       RECT 337.005 4.2 337.145 256.25 ;
       RECT 337.145 0 337.375 256.25 ;
-      RECT 337.375 0 337.515 0.01 ;
       RECT 337.375 4.2 337.515 256.25 ;
       RECT 337.515 0 408.465 256.25 ;
     LAYER met3 ;
