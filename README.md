@@ -1,12 +1,20 @@
 # CF_BGR
 
-> **Draft for review — text extraction only.** Figure rebuild did not pass, so this file is not a complete datasheet. Cypress/process leftovers may still be present. Do not treat this as a released spec.
+> **Draft for review.** Not a released spec. Figures are the original datasheet crops that passed branding review; any figure without a cached clearance was left out. Vendor wording may still be present in the text.
 
 - Vendor block: `s8bg`
 - Pages merged: 60/62
+- Figures published: 11/17
 - Skipped or invalid caches:
 - `src-39f0caaaf3fb0c45-p0043-analysis (missing cache)`
 - `src-336ad0fdfea8d485-sheet-0006-analysis (missing cache)`
+- Figures not published:
+- `src-39f0caaaf3fb0c45-p0001-figure-0000` — page logo, header, footer, or marketing tagline
+- `src-39f0caaaf3fb0c45-p0014-figure-0001` — Cannot publish unresolved S8 identifier in figure: 'S8'
+- `src-39f0caaaf3fb0c45-p0022-figure-0001` — vendor cell name or part number legible in crop; Text is mirrored/rotated in the image (e.g., 'Vpwr' appears as 'rwprV' when read normally), which may be a result of the crop or image processing. This could affect readability of labels but the content itself is technical block diagram data.
+- `src-39f0caaaf3fb0c45-p0023-figure-0002` — vision extraction failed: Ollama request failed: timed out
+- `src-39f0caaaf3fb0c45-p0024-figure-0001` — vendor cell name or part number legible in crop
+- `src-39f0caaaf3fb0c45-p0024-figure-0002` — page logo, header, footer, or marketing tagline
 
 ---
 
@@ -848,7 +856,60 @@ Use the files under `hdl/gl/` as blackbox declarations, `layout/lef/` for physic
 
 ## Block Diagram
 
-No source-backed figure of this type was present.
+### CF_BGR
+
+![CF_BGR](doc/generated/CF_BGR_schematic_01.png)
+
+CF_BGR [src-39f0caaaf3fb0c45:p21]
+
+### CF_BGR
+
+![CF_BGR](doc/generated/CF_BGR_schematic_02.png)
+
+CF_BGR schematic block diagram [src-39f0caaaf3fb0c45:p23]
+
+### Figure 3
+
+![Figure 3](doc/generated/CF_BGR_schematic_03.png)
+
+The CF_BGR circuit diagram (from datasheet) is depicted showing bias and voltage connections with specific current and component notations. [src-39f0caaaf3fb0c45:p24]
+
+### Vbe ≈ Vgo - (T / Tr)[Vgo - Vbe(Tr)] - [η - x] Vt ln(T / Tr)
+
+![Vbe ≈ Vgo - (T / Tr)[Vgo - Vbe(Tr)] - [η - x] Vt ln(T / Tr)](doc/generated/CF_BGR_block_01.png)
+
+Vbe ≈ Vgo - (T / Tr)[Vgo - Vbe(Tr)] - [η - x] Vt ln(T / Tr) [src-39f0caaaf3fb0c45:p25]
+
+### Vbe / R
+
+![Vbe / R](doc/generated/CF_BGR_schematic_04.png)
+
+Vbe / R [src-39f0caaaf3fb0c45:p26]
+
+### 
+
+![](doc/generated/CF_BGR_schematic_05.png)
+
+ΔV_{be} / R [src-39f0caaaf3fb0c45:p26]
+
+### I_se = {0, I_CTA_T ≥ I_PIA_T; I_PIA_T - I_CTA_T, I_CTA_T < I_PIA_T}
+
+![I_se = {0, I_CTA_T ≥ I_PIA_T; I_PIA_T - I_CTA_T, I_CTA_T < I_PIA_T}](doc/generated/CF_BGR_block_02.png)
+
+The figure shows a block diagram with a conditional expression for I_se. The expression defines I_se as 0 when I_CTA_T is greater than or equal to I_PIA_T, and as I_PIA_T minus I_CTA_T when I_CTA_T is less than I_PIA_T. The block is labeled as CF_BGR. [src-39f0caaaf3fb0c45:p26]
+
+### 
+
+![](doc/generated/CF_BGR_block_03.png)
+
+V_ref = I_CTAT (R1 + R2 + R3) + I_PTAT (R1 + R2) + I_NL R1 [src-39f0caaaf3fb0c45:p26]
+
+### R(T) = R(T_r)[1 + A(T - T_r) + B(T - T_r)^2]
+
+![R(T) = R(T_r)[1 + A(T - T_r) + B(T - T_r)^2]](doc/generated/CF_BGR_block_04.png)
+
+R(T) = R(T_r)[1 + A(T - T_r) + B(T - T_r)^2] [src-39f0caaaf3fb0c45:p26]
+
 
 ## Pin Description
 
@@ -3420,7 +3481,12 @@ power down, active high (vpwr) [src-336ad0fdfea8d485]
 
 ## Timing Diagram
 
-No source-backed figure of this type was present.
+### CF_BGR
+
+![CF_BGR](doc/generated/CF_BGR_chart_01.png)
+
+Figure 1: The source datasheet figure shows the pinout and interface of a circuit block (CF_BGR) with inputs, outputs, and power/ground connections. The block is enclosed by a rectangular boundary with pins labeled along the left, top, right, and bottom edges. The label (CDFname) is at the top-left, (CDFmult) at the top-right, and (CDFcellName) at the bottom-center of the diagram. The rectangular boundary has red square markers at the corners and along the edges where pins are connected. [src-39f0caaaf3fb0c45:p21]
+
 
 ## Limitations and Open Issues
 
@@ -3687,6 +3753,11 @@ Source markers identify immutable, hash-addressed operator evidence and page num
 - `src-336ad0fdfea8d485` page n/a
 - `src-39f0caaaf3fb0c45` page 1
 - `src-39f0caaaf3fb0c45` page 10
+- `src-39f0caaaf3fb0c45` page 21
+- `src-39f0caaaf3fb0c45` page 23
+- `src-39f0caaaf3fb0c45` page 24
+- `src-39f0caaaf3fb0c45` page 25
+- `src-39f0caaaf3fb0c45` page 26
 - `src-39f0caaaf3fb0c45` page 40
 - `src-39f0caaaf3fb0c45` page 49
 - `src-39f0caaaf3fb0c45` page 53
