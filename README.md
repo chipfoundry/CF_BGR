@@ -12,7 +12,7 @@
 - `src-39f0caaaf3fb0c45-p0001-figure-0000` — page logo, header, footer, or marketing tagline
 - `src-39f0caaaf3fb0c45-p0014-figure-0001` — Cannot publish unresolved S8 identifier in figure: 'S8'
 - `src-39f0caaaf3fb0c45-p0022-figure-0001` — vendor cell name or part number legible in crop; Text is mirrored/rotated in the image (e.g., 'Vpwr' appears as 'rwprV' when read normally), which may be a result of the crop or image processing. This could affect readability of labels but the content itself is technical block diagram data.
-- `src-39f0caaaf3fb0c45-p0023-figure-0002` — vision extraction failed: Ollama request failed: timed out
+- `src-39f0caaaf3fb0c45-p0023-figure-0002` — no cached branding clearance
 - `src-39f0caaaf3fb0c45-p0024-figure-0001` — vendor cell name or part number legible in crop
 - `src-39f0caaaf3fb0c45-p0024-figure-0002` — page logo, header, footer, or marketing tagline
 
@@ -856,6 +856,12 @@ Use the files under `hdl/gl/` as blackbox declarations, `layout/lef/` for physic
 
 ## Block Diagram
 
+### Figure not published (vendor branding)
+
+![Figure not published (vendor branding)](doc/generated/CF_BGR_withheld_01.svg)
+
+**Not published.** page logo, header, footer, or marketing tagline [src-39f0caaaf3fb0c45:p1]
+
 ### CF_BGR
 
 ![CF_BGR](doc/generated/CF_BGR_schematic_01.png)
@@ -867,6 +873,12 @@ CF_BGR [src-39f0caaaf3fb0c45:p21]
 ![CF_BGR](doc/generated/CF_BGR_schematic_02.png)
 
 CF_BGR schematic block diagram [src-39f0caaaf3fb0c45:p23]
+
+### Figure not published (not cleared)
+
+![Figure not published (not cleared)](doc/generated/CF_BGR_withheld_05.svg)
+
+**Not published.** vendor cell name or part number legible in crop [src-39f0caaaf3fb0c45:p24]
 
 ### Figure 3
 
@@ -3481,11 +3493,48 @@ power down, active high (vpwr) [src-336ad0fdfea8d485]
 
 ## Timing Diagram
 
+### Figure not published (not cleared)
+
+![Figure not published (not cleared)](doc/generated/CF_BGR_withheld_02.svg)
+
+**Not published.** Cannot publish unresolved S8 identifier in figure: 'S8' [src-39f0caaaf3fb0c45:p14]
+
 ### CF_BGR
 
 ![CF_BGR](doc/generated/CF_BGR_chart_01.png)
 
 Figure 1: The source datasheet figure shows the pinout and interface of a circuit block (CF_BGR) with inputs, outputs, and power/ground connections. The block is enclosed by a rectangular boundary with pins labeled along the left, top, right, and bottom edges. The label (CDFname) is at the top-left, (CDFmult) at the top-right, and (CDFcellName) at the bottom-center of the diagram. The rectangular boundary has red square markers at the corners and along the edges where pins are connected. [src-39f0caaaf3fb0c45:p21]
+
+### Figure not published (not cleared)
+
+![Figure not published (not cleared)](doc/generated/CF_BGR_withheld_03.svg)
+
+**Not published.** vendor cell name or part number legible in crop; Text is mirrored/rotated in the image (e.g., 'Vpwr' appears as 'rwprV' when read normally), which may be a result of the crop or image processing. This could affect readability of labels but the content itself is technical block diagram data. [src-39f0caaaf3fb0c45:p22]
+
+### Figure not published (vendor branding)
+
+![Figure not published (vendor branding)](doc/generated/CF_BGR_withheld_06.svg)
+
+**Not published.** page logo, header, footer, or marketing tagline [src-39f0caaaf3fb0c45:p24]
+
+
+## Tables
+
+No source-backed figure of this type was present.
+
+## Withheld figures
+
+### Figure not published (not cleared)
+
+![Figure not published (not cleared)](doc/generated/CF_BGR_withheld_04.svg)
+
+**Not published.** no cached branding clearance [src-39f0caaaf3fb0c45:p23]
+
+### Figure: ΔV_{be} ≈ V_{T} ln(mn)
+
+![Figure: ΔV_{be} ≈ V_{T} ln(mn)](doc/generated/CF_BGR_other_01.png)
+
+The image displays a mathematical equation: ΔV_{be} ≈ V_{T} ln(mn). The equation is presented in a clear, mathematical format with standard notation for the variables and the natural logarithm function. [src-39f0caaaf3fb0c45:p25]
 
 
 ## Limitations and Open Issues
@@ -3753,7 +3802,9 @@ Source markers identify immutable, hash-addressed operator evidence and page num
 - `src-336ad0fdfea8d485` page n/a
 - `src-39f0caaaf3fb0c45` page 1
 - `src-39f0caaaf3fb0c45` page 10
+- `src-39f0caaaf3fb0c45` page 14
 - `src-39f0caaaf3fb0c45` page 21
+- `src-39f0caaaf3fb0c45` page 22
 - `src-39f0caaaf3fb0c45` page 23
 - `src-39f0caaaf3fb0c45` page 24
 - `src-39f0caaaf3fb0c45` page 25
