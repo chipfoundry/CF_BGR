@@ -398,6 +398,16 @@ MACRO CF_BGR
       LAYER met1 ;
         RECT 340.21 280.82 343.78 281.22 ;
     END
+    PORT
+      LAYER met2 ;
+        RECT 1.23 21.6 407.235 24.7 ;
+        RECT 1.23 58.8 407.235 61.9 ;
+        RECT 1.23 96 407.235 99.1 ;
+        RECT 1.23 133.2 407.235 136.3 ;
+        RECT 1.23 170.4 407.235 173.5 ;
+        RECT 1.23 207.6 407.235 210.7 ;
+        RECT 1.23 244.8 407.235 247.9 ;
+    END
   END vgnd
   PIN vnb
     DIRECTION INPUT ;
@@ -413,6 +423,17 @@ MACRO CF_BGR
     PORT
       LAYER met1 ;
         RECT 193.455 280.82 196.235 281.22 ;
+    END
+    PORT
+      LAYER met2 ;
+        RECT 1.23 3 407.235 6.1 ;
+        RECT 1.23 40.2 407.235 43.3 ;
+        RECT 1.23 77.4 407.235 80.5 ;
+        RECT 1.23 114.6 407.235 117.7 ;
+        RECT 1.23 151.8 407.235 154.9 ;
+        RECT 1.23 189 407.235 192.1 ;
+        RECT 1.23 226.2 407.235 229.3 ;
+        RECT 1.23 263.4 407.235 266.5 ;
     END
   END vpwr
   PIN inl_ctrl[3]
