@@ -81,12 +81,15 @@ this package.
 - Startup-boost path: `en_startb`, `vb2_fast`, `boost3`–`boost7`.
 - PNP devices used for \(V_{BE}\) sit in the p-substrate; they are not placed in deep n-well. Bulk pins are not switched inside the macro.
 
-## Block Diagram
+## Pinout
 
-Symbol crop for `CF_BGR`. Placeholders such as `(CDFcellName)` are leftovers
-from the source symbol, not customer net names.
+Customer documentation includes a pinout of the integration cell only.
+Internal schematics and architecture block diagrams are not published.
 
-![CF_BGR symbol](doc/generated/CF_BGR_chart_01.png)
+![CF_BGR pinout](doc/generated/CF_BGR_pinout.svg)
+
+Pin names and directions match the public abstract (`layout/lef/CF_BGR.lef`)
+and the blackbox stub (`hdl/gl/CF_BGR.v`).
 
 ## Pin Description
 
