@@ -65,7 +65,7 @@ this package.
 - Voltage tempco trim: `trimTC[6:0]` (plus `finetune` on `CF_BGR_psoc3_revB`)
 - Current tempco trim and absolute trim (`trimCurr`, `CurrAbsTrim`; width varies by variant)
 - INL / curvature trim via `inl_ctrl`
-- DFT muxes: `mux1out` (currents), `mux2out` (voltage / ground)
+- DFT muxes: `mux1out` (currents), `mux2out` (voltage / ground); `mux1sel = 2'b11` loops an external current through `dft_curr_in` on the three larger variants
 - PTAT and CTAT currents brought out for characterization
 - Analog supply 1.6–2.0 V, industrial −40 °C to 100 °C
 - Typical IDD 100 µA; startup ≤ 10 µs
@@ -85,7 +85,7 @@ startup pins on another variant.
 
 - Voltage bandgap: IPTAT + ICTAT + INL currents into a resistor ladder; `Vout` is the summed reference.
 - Current bandgap: trimmed PTAT/CTAT balance; `vbias` / `vbias_cascode` drive mirrors.
-- DFT: `dft_sel` enables `mux1sel` / `mux2sel` onto `mux1out` / `mux2out`.
+- DFT: `dft_sel` enables `mux1sel` / `mux2sel` onto `mux1out` / `mux2out`. `mux1sel = 2'b11` selects the external-current loop on variants that have `dft_curr_in`.
 - `CF_BGR_psoc3_revB` adds a startup-boost path (`en_startb`, `vb2_fast`, `boost3`–`boost7`).
 - PNP devices used for \(V_{BE}\) sit in the p-substrate; they are not placed in deep n-well. Bulk pins are not switched inside the macro.
 
@@ -109,15 +109,15 @@ Descriptions are from the packaging extract where they match those stubs.
 | `Vout` | output | 1 | Bandgap voltage output. No DC drive; keep load current to tens of nA. |
 | `ictat` | output | 1 | CTAT current (characterization / trim). |
 | `iptat` | output | 1 | PTAT current (characterization / trim). |
-| `ibg_2p5uA` | output | 1 | Current-sink output. Typical 2.4 µA in the source; pin name is 2.5 µA. |
-| `ibg_10uA` | output | 1 | Current-source output. Typical 9.6 µA in the source; pin name is 10 µA. |
-| `mux1out` | output | 1 | DFT current mux (ICTAT / IPTAT / INL / Iref when DFT is on). |
+| `ibg_2p5uA` | output | 1 | Current-sink output. Typical 2.4 µA in the source; pin name is 2.5 µA. Keep ≥ ~400 mV VDS. |
+| `ibg_10uA` | output | 1 | Current-source output. Typical 9.6 µA in the source; pin name is 10 µA. Keep ≥ ~550 mV VDS. |
+| `mux1out` | output | 1 | DFT current mux (ICTAT / IPTAT / INL / Iref, or the `dft_curr_in` loop on other variants). |
 | `mux2out` | output | 1 | DFT voltage mux (`Vout` or `vgnd` when DFT is on). |
 | `vbias` | output | 1 | Bias voltage for current mirrors. |
 | `vbias_cascode` | output | 1 | Cascode bias for current mirrors. |
 | `dft_sel` | input | 1 | DFT enable, active high (`vpwr`). |
-| `mux1sel` | input | 2 | DFT current-select. |
-| `mux2sel` | input | 1 | DFT voltage-select. |
+| `mux1sel` | input | 2 | DFT current-select. `2'b11` is the external-current loop on variants with `dft_curr_in`; the LSBs also fine-step INL on `CF_BGR_psoc3_revB`. |
+| `mux2sel` | input | 1 | DFT voltage-select: `Vout` or `vgnd` onto `mux2out`. |
 | `pd` | input | 1 | Power-down for the voltage bandgap, active high. |
 | `pd_ibg` | input | 1 | Power-down for the current reference, active high. |
 | `trimTC` | input | 7 | Voltage temperature-coefficient trim. |
@@ -139,7 +139,7 @@ Pins shared with `CF_BGR` keep the same roles. Differences:
 | `trimCurr` | 6 bits | 6 bits | 6 bits |
 | `CurrAbsTrim` | 6 bits | 6 bits | 6 bits |
 | `inl_ctrl` | 2 bits | 7 bits (4 MSB crossover, 3 LSB current) | 3 bits |
-| `dft_curr_in` | input, current steered through DFT for trim | same | same |
+| `dft_curr_in` | input; with `mux1sel = 2'b11` the current is looped out `mux1out` | same | same |
 | `finetune` | — | input, extra voltage-tempco LSB with `trimTC` | — |
 | `en_startb` | — | input, startup boost enable, active low | — |
 | `vb2_fast` | — | input, fast-buffer bias into startup boost | — |
@@ -173,6 +173,9 @@ are shown.
 | `ibg_2p5uA` / `ibg_2p375uA` typical | 2.4 | µA | Sink to ground inside the macro |
 | `ibg_10uA` typical | 9.6 | µA | Source |
 | `ibg_3uA` typical | 3 | µA | Sink; revA / revB / tspsoc |
+| Current-source compliance | ≥ ~550 | mV | VDS on source outputs (`ibg_10uA` / 9.6 µA class) |
+| Current-sink compliance | ≥ ~400 | mV | VDS on sink outputs |
+| Voltage DFT / probe impedance | ≥ 80 | MΩ | 80 MΩ is the source trim-path figure; ≥100 MΩ is acceptable, >1 GΩ preferred |
 | Voltage output load | tens of nA | | No DC drive capability |
 
 ### Physical
@@ -203,19 +206,48 @@ There is no internal power switch on these four cells.
 
 #### DFT / trim
 
-`dft_sel = 1` and `pd = 0`. `mux1sel` / `mux2sel` steer internal currents
-and `Vout`/`vgnd` to `mux1out` / `mux2out`. `dft_curr_in` (revA, revB,
-tspsoc) injects an external current through the same DFT path.
+`dft_sel = 1` and `pd = 0`. Keep `pd_ibg = 0` if current DFT is required.
 
-Production trim uses two or three temperature points. Two-point trim has
-reduced final accuracy. Apply trim codes before relying on the ±0.2% /
-20 ppm/°C / ±3% figures.
+| Select | Action |
+|---|---|
+| `mux2sel` | Steers `Vout` or `vgnd` onto `mux2out`. |
+| `mux1sel` | Steers internal currents (ICTAT, IPTAT, INL, Iref) onto `mux1out`. |
+| `mux1sel = 2'b11` | On `CF_BGR_psoc3_revA`, `CF_BGR_psoc3_revB`, and `CF_BGR_tspsoc`, loops `dft_curr_in` out `mux1out` so an external current can be trimmed through the same path. The primary `CF_BGR` stub has no `dft_curr_in` pin. |
+
+DFT and probe paths are high impedance. Plan for at least 80 MΩ on the voltage trim node; ≥100 MΩ is acceptable and >1 GΩ is preferred. Do not treat `mux1out` / `mux2out` as low-Z force pins.
+
+#### INL / curvature (`CF_BGR_psoc3_revB`)
+
+`inl_ctrl` is 7 bits on this variant. Two INL current legs stay on; the remaining codes add legs and fine steps:
+
+| Field | Function | Source extract |
+|---|---|---|
+| `inl_ctrl[6:3]` | Crossover (temperature knee) | ~2° typical step, about ±15° range |
+| `inl_ctrl[2:0]` | INL current legs | 2–9 legs in steps of 1 (`0` enables the switch) |
+| `mux1sel[1:0]` | Extra INL LSBs | 0.5 and 0.25 leg steps; also ~0.45 mV typical / ±7 mV range |
+
+`CF_BGR` and `CF_BGR_psoc3_revA` only expose 2-bit `inl_ctrl`. `CF_BGR_tspsoc` exposes 3 bits. Connect the width in the chosen Verilog stub.
+
+#### Default trim codes
+
+Use these mid-scale codes from the source as a bring-up starting point, then replace them with lot trim. They apply to the 7/6/6-bit buses on the three larger variants; `CF_BGR` has a 2-bit `CurrAbsTrim` and a 7-bit `trimCurr`, so only `trimTC` matches this table directly.
+
+| Bus | Suggested reset | Notes |
+|---|---|---|
+| `trimTC[6:0]` | `7'b0111111` | Voltage temperature coefficient |
+| `trimCurr[5:0]` | `6'b011111` | Current temperature coefficient (6-bit variants) |
+| `CurrAbsTrim[5:0]` | `6'b100000` | Current absolute (6-bit variants) |
+| `inl_ctrl[2:0]` | `3'b101` | Silicon INL default in the extract (`3'b010` was the simulation default) |
+
+Apply trim before deasserting `pd` if the ±0.2% / 20 ppm/°C / ±3% figures are required. Production trim uses two or three temperature points; two-point trim is less accurate.
 
 ### Integration Requirements
 
 - Tie `vpwr`/`vpb` to the 1.8 V analog supply and `vgnd`/`vnb` to analog ground.
+- Keep current-source outputs at ≥ ~550 mV VDS and current-sink outputs at ≥ ~400 mV VDS.
+- Probe `Vout` / DFT voltage with ≥80 MΩ (prefer >1 GΩ). A 50 Ω or 10 MΩ meter will pull the reference.
 - Do not route unrelated signals over the macro without shielding.
-- Shield reference routes leaving the macro.
+- Shield reference routes leaving the macro. If a reference must cross a switching net, shield it on all four sides (co-axial).
 - Do not tap an unbuffered trim-buffer output as a chip-level reference.
 - Give each consumer its own low-power buffer; the bandgap pin itself cannot drive DC current.
 - Add RC filtering on voltage outputs if the application PSRR needs it; that increases startup time.
@@ -235,10 +267,10 @@ This is a DC analog reference. There is no clocked timing diagram.
 Power-down and DFT are level-sensitive:
 
 1. Analog `vpwr`/`vgnd` stable.
-2. Drive `trimTC`, `trimCurr`, `CurrAbsTrim`, and `inl_ctrl` to the intended codes.
+2. Drive `trimTC`, `trimCurr`, `CurrAbsTrim`, and `inl_ctrl` to the intended codes (see default trim table).
 3. Deassert `pd` (and `pd_ibg` if current outputs are needed).
 4. Wait the startup window (≤ 10 µs) before using `Vout` or the current pins.
-5. Assert `dft_sel` only for trim or characterization.
+5. Assert `dft_sel` only for trim or characterization. Use `mux1sel = 2'b11` only when looping `dft_curr_in`.
 
 On `CF_BGR_psoc3_revB`, `en_startb` (active low) and `vb2_fast` gate the
 startup-boost currents `boost3`–`boost7`. Leave them off for DC operation
