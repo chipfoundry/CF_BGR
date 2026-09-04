@@ -1,115 +1,48 @@
-// Verilog HDL for "CF_BGR", "CF_BGR" "behavioral"
+ // Verilog HDL for "CF_BGR", "CF_BGR" "behavioral"
 
-module CF_BGR (iptat, ictat, Vout, ibg_2p5uA, ibg_10uA, mux1out, mux2out, vbias, vbias_cascode,inl_ctrl,CurrAbsTrim, dft_sel, mux1sel, mux2sel, pd, pd_ibg, trimCurr, 
-           trimTC, vgnd, vnb, vpb, vpwr);
+module CF_BGR (Vout, ibg_2p375uA, mux1out, dft_sel, mux1sel, CurrAbsTrim, iptat, dft_curr_in, ibg_3uA, trimTC, finetune, ictat, boost3, mux2out, trimCurr, inl_ctrl, boost4, boost5, boost6, vb2_fast, boost7, en_startb, pd, vbias_cascode, pd_ibg, mux2sel, vbias, vgnd, vpwr, vpb, vnb,vout_ictat,pbias_ctat);
     output Vout;
-		output ictat;
-		output iptat;
-    output ibg_2p5uA;
-    output ibg_10uA;
+    output ictat;
+    output iptat;
+    output ibg_2p375uA;
+    output ibg_3uA;
     output mux1out;
     output mux2out;
     output vbias;
     output vbias_cascode;
+    output boost3;
+    output boost4;
+    output boost5;
+    output boost6;
+    output boost7;
+    input vb2_fast;
+    input en_startb;   
+    input dft_curr_in;
     input dft_sel;
     input [1:0] mux1sel;
     input mux2sel;
     input pd;
     input pd_ibg;
-    input [6:0] trimCurr;
+    input [5:0] trimCurr;
     input [6:0] trimTC;
+    input finetune;
     input vgnd;
-    input [1:0] CurrAbsTrim;	
-    input [1:0] inl_ctrl;	
+    input [5:0] CurrAbsTrim;	
+    input [6:0] inl_ctrl;	
     input vnb;
     input vpb;
     input vpwr;
+    output vout_ictat;
+    output pbias_ctat;
 
-		reg Vout_reg;
-		reg ibg_2p5uA_reg;
-		reg ibg_10uA_reg;
-		reg iptat_reg;
-		reg ictat_reg;
-		reg mux1out_reg;
-		reg mux2out_reg;
-		reg vbias_reg;
-		reg vbias_cascode_reg; 
-
-		initial begin
-			Vout_reg = 1'b0;
-			ibg_2p5uA_reg = 1'b0;
-			ibg_10uA_reg = 1'b0;
-			mux1out_reg = 1'b0;
-			mux2out_reg = 1'b0;
-			vbias_reg = 1'b1;
-			vbias_cascode_reg = 1'b0;
-			iptat_reg = 1'b0;
-			ictat_reg = 1'b0;
-		end
-
-		always @ ( pd or pd_ibg ) begin
-				if ( pd == 1'b1 ) begin
-					Vout_reg = 1'b0;
-		      ibg_2p5uA_reg = 1'b0;
-    		  ibg_10uA_reg = 1'b0;
-    		  mux1out_reg = 1'b0;
-    		  mux2out_reg = 1'b0;
-    		  vbias_reg = 1'b1;
-     			vbias_cascode_reg = 1'b1;
-				end
-				else begin
-					Vout_reg = 1'b1;
-					if( pd_ibg == 1'b1) begin
-						ibg_2p5uA_reg = 1'b0;
-						ibg_10uA_reg = 1'b0;
-						vbias_reg = 1'b1;
-						vbias_cascode_reg = 1'b1;
-					end
-					else begin
-						ibg_2p5uA_reg = 1'b1;
-            ibg_10uA_reg = 1'b1;
-            vbias_reg = 1'b0;
-            vbias_cascode_reg = 1'b0;
-					end
-				end
-		end	
-			
-		always @ (dft_sel or mux1sel or mux2sel) begin
-				if (dft_sel == 1'b1 & pd == 1'b0) begin
-						if ( pd_ibg == 1'b0 ) begin
-								mux1out_reg = 1'b1;
-						end
-						else begin 
-								mux1out_reg = 1'b0;
-						end
-						if (mux1sel == 1'b0) begin
-								mux2out_reg = 1'b1;
-						end
-						else begin 
-								mux2out_reg = 1'b0;
-						end
-				end
-				if( pd == 1'b1 ) begin
-					mux1out_reg = 1'b0;
-					mux2out_reg = 1'b0;
-				end
-			end	
-
-	assign Vout = Vout_reg;
-	assign ibg_2p5uA = ibg_2p5uA_reg;
-	assign ibg_10uA = ibg_10uA_reg;
-	assign mux1out = mux1out_reg;
-  assign mux2out = mux2out_reg;
-  assign vbias = vbias_reg;
-  assign vbias_cascode =  vbias_cascode_reg;   
-	assign ictat = ictat_reg;
-	assign iptat = iptat_reg;
-
-	// Timing Check
-  `ifdef notimingcheck
-      // do no timing checks
-  `else
-      // do no timing checks
-	`endif	
+	assign Vout = ~pd & vpwr;
+	assign ibg_2p375uA = ~pd & ~pd_ibg & vpwr;
+	assign ibg_3uA = ~pd & ~pd_ibg & vpwr;
+	assign iptat = ~pd & vpwr;
+	assign ictat = ~pd & vpwr;
+	assign mux1out = ~pd & ~pd_ibg & dft_sel & vpwr ; 
+	assign mux2out = ~pd & dft_sel & mux1sel & vpwr;
+	assign vbias = ~pd & vpwr;
+	assign vbias_cascode = ~pd & vpwr;
 
 endmodule

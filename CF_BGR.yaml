@@ -7,7 +7,7 @@ info:
   license: proprietary
   author: ChipFoundry
   email: support@chipfoundry.io
-  version: 0.1.1
+  version: 0.2.0
   date: 9-4-2026
   category: digital
   tags:
@@ -16,9 +16,9 @@ info:
   type: hard
   maturity: np
   width: '408.465'
-  height: '256.25'
+  height: '281.22'
   technology: sky130
   digital_supply_voltage: n/a
   analog_supply_voltage: n/a
   clock_freq_mhz: n/a
-  cell_count: '4'
+  cell_count: '1'
