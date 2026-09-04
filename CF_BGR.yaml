@@ -14,7 +14,7 @@ info:
   - CF_BGR
   bus: n/a
   type: hard
-  maturity: np
+  maturity: Production
   width: '408.465'
   height: '281.22'
   technology: sky130

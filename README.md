@@ -3,8 +3,8 @@
 > Bandgap Reference
 
 Draft for designer review. Electrical values below are transcribed from the
-packaging source extract. This package is not marked silicon-proven. The public
-GDS is an abstract; ChipFoundry substitutes protected full geometry at tapeout.
+packaging source extract. The public GDS is an abstract; ChipFoundry
+substitutes protected full geometry at tapeout.
 
 This package ships one hard macro: `CF_BGR`.
 
@@ -267,9 +267,13 @@ startup.
 
 ## Tapeout History
 
-This package is not marked silicon-proven in IPM metadata (`maturity: np`).
-The customer tree contains abstract integration views. Protected full layout
-is merged by ChipFoundry during tapeout.
+This hard macro has high-volume commercial production history (millions of
+units). Catalog and IPM maturity is Production.
+
+This ChipFoundry SkyWater 130 nm package delivers an abstract for
+integration. ChipFoundry substitutes protected full layout at tapeout.
+The ChipIgnite delivery of this package is not marked shuttle-proven until
+a run returns.
 
 | Version | Date | Notes |
 |---|---|---|
