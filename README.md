@@ -272,7 +272,7 @@ units). Catalog and IPM maturity is Production.
 
 This ChipFoundry SkyWater 130 nm package delivers an abstract for
 integration. ChipFoundry substitutes protected full layout at tapeout.
-The ChipIgnite delivery of this package is not marked shuttle-proven until
+The chipIgnite delivery of this package is not marked shuttle-proven until
 a run returns.
 
 | Version | Date | Notes |
