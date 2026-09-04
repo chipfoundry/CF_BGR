@@ -385,7 +385,7 @@ MACRO CF_BGR
   END inl_ctrl[5]
   PIN vpb
     DIRECTION INPUT ;
-    USE SIGNAL ;
+    USE POWER ;
     PORT
       LAYER met1 ;
         RECT 184.955 280.82 192.08 281.22 ;
@@ -393,7 +393,7 @@ MACRO CF_BGR
   END vpb
   PIN vgnd
     DIRECTION INPUT ;
-    USE SIGNAL ;
+    USE GROUND ;
     PORT
       LAYER met1 ;
         RECT 340.21 280.82 343.78 281.22 ;
@@ -401,7 +401,7 @@ MACRO CF_BGR
   END vgnd
   PIN vnb
     DIRECTION INPUT ;
-    USE SIGNAL ;
+    USE GROUND ;
     PORT
       LAYER met1 ;
         RECT 345.205 280.82 347.975 281.22 ;
@@ -409,7 +409,7 @@ MACRO CF_BGR
   END vnb
   PIN vpwr
     DIRECTION INPUT ;
-    USE SIGNAL ;
+    USE POWER ;
     PORT
       LAYER met1 ;
         RECT 193.455 280.82 196.235 281.22 ;
