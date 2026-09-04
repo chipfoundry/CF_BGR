@@ -44,14 +44,14 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.0 --include-drafts
+ipm install CF_BGR --version 0.2.1 --include-drafts
 ```
 
 Until the marketplace listing is published, install from a local catalog
 override the same way `cf-bgr-test-project` does:
 
 ```bash
-ipm install CF_BGR --version 0.2.0 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.1 --include-drafts --local-file ip/catalog.json
 ```
 
 Use `hdl/gl/` as the blackbox, `layout/lef/` for P&R, `layout/gds/` for the
@@ -259,7 +259,7 @@ startup.
 - No DC current drive; overload on `Vout` will pull the reference.
 - Power-down is functional disable, not a supply switch. Leakage remains.
 - Verilog in `hdl/gl/` is a behavioral blackbox (enable / DFT stubs), not a SPICE-accurate model.
-- Public abstracts use Sky130 `prBoundary` 235/4 and OBS on blockage datatype 10.
+- Public abstracts use Sky130 `prBoundary` 235/4, OBS on blockage datatype 10, a full-PR `dnwell` (64/18), and fom/poly waffleDrop (`cfom` 22/24, `cp1m` 33/24).
 - Companion cells (trim buffer, 5 µA buffers, VREF/VCM buffers) are not shipped in this package.
 
 ## Tapeout History
@@ -273,3 +273,4 @@ is merged by ChipFoundry during tapeout.
 | 0.1.0 | 2026-09-03 | First unpublished IPM draft (four vendor tops). |
 | 0.1.1 | 2026-09-04 | Public LEFs stripped of leftover `lefout` VIA/VIARULE blocks so OpenROAD can load them. |
 | 0.2.0 | 2026-09-04 | Single public cell: former revB top renamed to `CF_BGR`. Older tops dropped. |
+| 0.2.1 | 2026-09-04 | Abstract GDS covers the PR boundary with `dnwell` and fom/poly waffleDrop. LEF supplies are `USE POWER`/`GROUND`. |
