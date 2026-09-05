@@ -6,7 +6,8 @@ Draft for designer review. Electrical values below are transcribed from the
 packaging source extract. The public GDS is an abstract; ChipFoundry
 substitutes protected full geometry at tapeout.
 
-This package ships one hard macro: `CF_BGR`.
+This package ships `CF_BGR`, the customer integration cell, and
+`CF_BGR_core`, the analog leaf. Instantiate `CF_BGR`.
 
 ## Overview
 
@@ -44,19 +45,21 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.2 --include-drafts
+ipm install CF_BGR --version 0.2.3 --include-drafts
 ```
 
 Until the marketplace listing is published, install from a local catalog
 override the same way `cf-bgr-test-project` does:
 
 ```bash
-ipm install CF_BGR --version 0.2.2 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.3 --include-drafts --local-file ip/catalog.json
 ```
 
-Use `hdl/gl/` as the blackbox, `layout/lef/` for P&R, `layout/gds/` and
-`layout/mag/` for the public abstract, and `timing/lib/` for characterized views
-that shipped with this package.
+Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
+P&R, and `layout/gds/CF_BGR.gds` / `layout/mag/CF_BGR.mag` for the public wrap.
+`CF_BGR_core` is the analog leaf (empty Verilog, pin-only abstract). ChipFoundry
+substitutes vault GDS into `CF_BGR_core` at tapeout. `timing/lib/` is the
+characterized analog view; P&R uses the wrap LEF (`vpwr` / `vgnd` only).
 
 ## Features
 
@@ -71,7 +74,8 @@ that shipped with this package.
 - Startup boost: `en_startb` (active low), `vb2_fast`, `boost3`–`boost7`
 - Analog supply 1.6–2.0 V, industrial −40 °C to 100 °C
 - Typical IDD 100 µA; startup ≤ 10 µs
-- Hard-macro size 408.465 × 281.22 µm
+- Customer cell `CF_BGR` 438.465 × 311.22 µm (15 µm halo around analog leaf 408.465 × 281.22 µm)
+- Customer PG is `vpwr` / `vgnd` only. Well taps `vpb` / `vnb` are tied inside the wrap.
 
 ### Architecture
 
@@ -80,6 +84,7 @@ that shipped with this package.
 - DFT: `dft_sel` enables `mux1sel` / `mux2sel` onto `mux1out` / `mux2out`. `mux1sel = 2'b11` selects the external-current loop on `dft_curr_in`.
 - Startup-boost path: `en_startb`, `vb2_fast`, `boost3`–`boost7`.
 - PNP devices used for \(V_{BE}\) sit in the p-substrate; they are not placed in deep n-well. Bulk pins are not switched inside the macro.
+- Integration wrap: north-halo met3 PG straps and full-height met4 landings (SRAM-style) so default LibreLane chip PDN (met4 / met5) can via4 onto `vpwr` / `vgnd`.
 
 ## Pinout
 
@@ -125,8 +130,9 @@ Descriptions are from the packaging extract where they match that stub.
 | `vb2_fast` | input | 1 | Fast-buffer bias into the startup-boost path. |
 | `vpwr` | input | 1 | Analog supply, 1.6–2.0 V. |
 | `vgnd` | input | 1 | Analog ground. |
-| `vpb` | input | 1 | N-well bulk. Tie to the analog supply. |
-| `vnb` | input | 1 | P-substrate bulk. Tie to analog ground. |
+
+`CF_BGR_core` also has well taps `vpb` (n-well) and `vnb` (p-substrate). The wrap
+ties `.vpb(vpwr)` and `.vnb(vgnd)`. Do not connect those pins at chip level.
 
 ## Specifications
 
@@ -160,7 +166,8 @@ Sky130 datasheet.
 
 | Cell | Width (µm) | Height (µm) | Area (µm²) |
 |---|---:|---:|---:|
-| `CF_BGR` | 408.465 | 281.22 | 114 869 |
+| `CF_BGR` | 438.465 | 311.22 | 136 469 |
+| `CF_BGR_core` | 408.465 | 281.22 | 114 869 |
 
 ### Operating Modes and Sequences
 
@@ -220,7 +227,8 @@ is less accurate.
 
 ### Integration Requirements
 
-- Tie `vpwr`/`vpb` to the 1.8 V analog supply and `vgnd`/`vnb` to analog ground.
+- Tie `vpwr` to the 1.8 V analog supply and `vgnd` to analog ground. The wrap already straps `vpb`/`vnb` onto those rails.
+- In OpenLane / LibreLane, hook chip PDN with `PDN_MACRO_CONNECTIONS: "u_cf_bgr vccd1 vssd1 vpwr vgnd"` and connect `.vpwr(vccd1)`, `.vgnd(vssd1)` under `USE_POWER_PINS`. Do not list `vpb`/`vnb` on the wrapper instance.
 - Keep current-sink outputs at ≥ ~400 mV VDS.
 - Probe `Vout` / DFT voltage with ≥80 MΩ (prefer >1 GΩ). A 50 Ω or 10 MΩ meter will pull the reference.
 - Do not route unrelated signals over the macro without shielding.
@@ -261,8 +269,8 @@ startup.
 - Trim range is not symmetrical; it was centered from measured lots.
 - No DC current drive; overload on `Vout` will pull the reference.
 - Power-down is functional disable, not a supply switch. Leakage remains.
-- Verilog in `hdl/gl/` is a behavioral blackbox (enable / DFT stubs), not a SPICE-accurate model.
-- Public abstracts use Sky130 `prBoundary` 235/4, OBS on blockage datatype 10, a 2 µm-inset `dnwell` (64/18), fom/poly waffleDrop (`cfom` 22/24, `cp1m` 33/24), interior `vpwr`/`vgnd` met2 straps, and a Magic `layout/mag` view.
+- Verilog in `hdl/gl/CF_BGR.v` is a structural wrap around an empty `CF_BGR_core` blackbox, not a SPICE-accurate model.
+- Public wrap uses Sky130 `prBoundary` 235/4, OBS on li1/met1/met2 blockage datatype 10, a 2 µm-inset `dnwell` (64/18), fom/poly waffleDrop, north-halo met3 PG straps, full-height met4 `vpwr`/`vgnd`, and a Magic `layout/mag` view. Analog leaf views are `CF_BGR_core`.
 - Companion cells (trim buffer, 5 µA buffers, VREF/VCM buffers) are not shipped in this package.
 
 ## Tapeout History
@@ -282,3 +290,4 @@ a run returns.
 | 0.2.0 | 2026-09-04 | Single public cell: former revB top renamed to `CF_BGR`. Older tops dropped. |
 | 0.2.1 | 2026-09-04 | Abstract GDS covers the PR boundary with `dnwell` and fom/poly waffleDrop. LEF supplies are `USE POWER`/`GROUND`. |
 | 0.2.2 | 2026-09-04 | Magic `.mag` abstract, 2 µm dnwell keepout, interior met2 `vpwr`/`vgnd` straps for PDN. |
+| 0.2.3 | 2026-09-04 | SRAM-style PG wrap: analog leaf is `CF_BGR_core`; customer `CF_BGR` exposes `vpwr`/`vgnd` with met3 straps and full-height met4. Hierarchical LVS on public views is clean. |
