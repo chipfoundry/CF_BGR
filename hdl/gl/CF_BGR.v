@@ -1,5 +1,5 @@
 // Structural PG wrapper. Analog leaf is CF_BGR_core.
-// Customer rails are vpwr/vgnd; well taps vpb/vnb are tied inside.
+// Customer rails are vpwr/vgnd; well taps vpb/vnb/vpbe are tied inside.
 module CF_BGR (
     Vout,
     ictat,
