@@ -45,14 +45,14 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.3 --include-drafts
+ipm install CF_BGR --version 0.2.4 --include-drafts
 ```
 
 Until the marketplace listing is published, install from a local catalog
 override the same way `cf-bgr-test-project` does:
 
 ```bash
-ipm install CF_BGR --version 0.2.3 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.4 --include-drafts --local-file ip/catalog.json
 ```
 
 Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
@@ -291,3 +291,4 @@ a run returns.
 | 0.2.1 | 2026-09-04 | Abstract GDS covers the PR boundary with `dnwell` and fom/poly waffleDrop. LEF supplies are `USE POWER`/`GROUND`. |
 | 0.2.2 | 2026-09-04 | Magic `.mag` abstract, 2 µm dnwell keepout, interior met2 `vpwr`/`vgnd` straps for PDN. |
 | 0.2.3 | 2026-09-04 | SRAM-style PG wrap: analog leaf is `CF_BGR_core`; customer `CF_BGR` exposes `vpwr`/`vgnd` with met3 straps and full-height met4. Hierarchical LVS on public views is clean. |
+| 0.2.4 | 2026-09-18 | Magic-port extract labels so precheck LVS unique-matches wrap pins. |
