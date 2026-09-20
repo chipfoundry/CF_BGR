@@ -51,15 +51,15 @@ rect 82332 0 82360 3293
 rect 82507 0 82535 3244
 rect 33191 0 33219 3411
 rect 33071 0 33099 3411
-rect 0 33000 3415 33028
-rect 0 33156 3415 33184
+rect 0 32990 3415 33038
+rect 0 33146 3415 33194
 rect 69011 59210 69075 62244
-rect 0 17734 3299 17762
-rect 0 16922 3350 16950
-rect 0 17022 3350 17050
-rect 0 17110 3350 17138
-rect 0 17216 3350 17244
-rect 0 17375 3350 17403
+rect 0 17724 3299 17772
+rect 0 16912 3350 16960
+rect 0 17012 3350 17060
+rect 0 17100 3350 17148
+rect 0 17206 3350 17254
+rect 0 17365 3350 17413
 rect 33323 0 33351 3207
 rect 33444 0 33472 3207
 rect 32457 0 32485 3389
@@ -70,8 +70,8 @@ rect 40656 59164 40752 60924
 rect 41921 59164 42017 60924
 rect 32824 0 32852 3387
 rect 32945 0 32973 3389
-rect 0 49292 3498 49320
-rect 0 47606 3203 47634
+rect 0 49282 3498 49330
+rect 0 47596 3203 47644
 rect 32701 0 32729 3389
 << via2 >>
 rect 40684 60594 40724 60634
@@ -1600,25 +1600,25 @@ rlabel metal2 s 33191 0 33219 3411 4 inl_ctrl[0]
 port 32 nsew
 rlabel metal2 s 33071 0 33099 3411 4 inl_ctrl[1]
 port 33 nsew
-rlabel metal2 s 0 33000 3415 33028 4 vbias_cascode
+rlabel metal2 s 0 32990 3415 33038 4 vbias_cascode
 port 34 nsew
-rlabel metal2 s 0 33156 3415 33184 4 vbias
+rlabel metal2 s 0 33146 3415 33194 4 vbias
 port 35 nsew
 rlabel metal2 s 69011 59210 69075 62244 4 boost3
 port 36 nsew
-rlabel metal2 s 0 17734 3299 17762 4 dft_curr_in
+rlabel metal2 s 0 17724 3299 17772 4 dft_curr_in
 port 37 nsew
 rlabel metal1 s 42643 59202 42679 62244 4 vb2_fast
 port 38 nsew
-rlabel metal2 s 0 16922 3350 16950 4 Vout
+rlabel metal2 s 0 16912 3350 16960 4 Vout
 port 39 nsew
-rlabel metal2 s 0 17022 3350 17050 4 ibg_3uA
+rlabel metal2 s 0 17012 3350 17060 4 ibg_3uA
 port 40 nsew
-rlabel metal2 s 0 17110 3350 17138 4 ibg_2p375uA
+rlabel metal2 s 0 17100 3350 17148 4 ibg_2p375uA
 port 41 nsew
-rlabel metal2 s 0 17216 3350 17244 4 mux1out
+rlabel metal2 s 0 17206 3350 17254 4 mux1out
 port 42 nsew
-rlabel metal2 s 0 17375 3350 17403 4 mux2out
+rlabel metal2 s 0 17365 3350 17413 4 mux2out
 port 43 nsew
 rlabel metal2 s 33323 0 33351 3207 4 ictat
 port 44 nsew
@@ -1694,9 +1694,9 @@ rlabel metal2 s 32824 0 32852 3387 4 inl_ctrl[3]
 port 79 nsew
 rlabel metal2 s 32945 0 32973 3389 4 inl_ctrl[2]
 port 80 nsew
-rlabel metal2 s 0 49292 3498 49320 4 pbias_ctat
+rlabel metal2 s 0 49282 3498 49330 4 pbias_ctat
 port 81 nsew
-rlabel metal2 s 0 47606 3203 47634 4 vout_ictat
+rlabel metal2 s 0 47596 3203 47644 4 vout_ictat
 port 82 nsew
 rlabel metal2 s 32701 0 32729 3389 4 inl_ctrl[4]
 port 83 nsew

@@ -276,7 +276,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 165 17.075 165.14 ;
+        RECT 0 164.95 17.075 165.19 ;
     END
   END vbias_cascode
   PIN vbias
@@ -284,7 +284,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 165.78 17.075 165.92 ;
+        RECT 0 165.73 17.075 165.97 ;
     END
   END vbias
   PIN boost3
@@ -300,7 +300,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 88.67 16.495 88.81 ;
+        RECT 0 88.62 16.495 88.86 ;
     END
   END dft_curr_in
   PIN vb2_fast
@@ -316,7 +316,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 84.61 16.75 84.75 ;
+        RECT 0 84.56 16.75 84.8 ;
     END
   END Vout
   PIN ibg_3uA
@@ -324,7 +324,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 85.11 16.75 85.25 ;
+        RECT 0 85.06 16.75 85.3 ;
     END
   END ibg_3uA
   PIN ibg_2p375uA
@@ -332,7 +332,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 85.55 16.75 85.69 ;
+        RECT 0 85.5 16.75 85.74 ;
     END
   END ibg_2p375uA
   PIN mux1out
@@ -340,7 +340,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 86.08 16.75 86.22 ;
+        RECT 0 86.03 16.75 86.27 ;
     END
   END mux1out
   PIN mux2out
@@ -348,7 +348,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 86.875 16.75 87.015 ;
+        RECT 0 86.825 16.75 87.065 ;
     END
   END mux2out
   PIN ictat
@@ -467,7 +467,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 246.46 17.49 246.6 ;
+        RECT 0 246.41 17.49 246.65 ;
     END
   END pbias_ctat
   PIN vout_ictat
@@ -475,7 +475,7 @@ MACRO CF_BGR
     USE SIGNAL ;
     PORT
       LAYER met2 ;
-        RECT 0 238.03 16.015 238.17 ;
+        RECT 0 237.98 16.015 238.22 ;
     END
   END vout_ictat
   PIN inl_ctrl[4]
@@ -497,17 +497,17 @@ MACRO CF_BGR
       RECT 207.86 296.22 213.215 311.22 ;
       RECT 213.395 296.22 423.465 311.22 ;
     LAYER met2 ;
-      RECT 0 0 15 84.61 ;
-      RECT 0 84.75 15 85.11 ;
-      RECT 0 85.25 15 85.55 ;
-      RECT 0 85.69 15 86.08 ;
-      RECT 0 86.22 15 86.875 ;
-      RECT 0 87.015 15 88.67 ;
-      RECT 0 88.81 15 165 ;
-      RECT 0 165.14 15 165.78 ;
-      RECT 0 165.92 15 238.03 ;
-      RECT 0 238.17 15 246.46 ;
-      RECT 0 246.6 15 311.22 ;
+      RECT 0 0 15 84.56 ;
+      RECT 0 84.8 15 85.06 ;
+      RECT 0 85.3 15 85.5 ;
+      RECT 0 85.74 15 86.03 ;
+      RECT 0 86.27 15 86.825 ;
+      RECT 0 87.065 15 88.62 ;
+      RECT 0 88.86 15 164.95 ;
+      RECT 0 165.19 15 165.73 ;
+      RECT 0 165.97 15 237.98 ;
+      RECT 0 238.22 15 246.41 ;
+      RECT 0 246.65 15 311.22 ;
       RECT 423.465 0 438.465 311.22 ;
       RECT 15 0 162.285 15 ;
       RECT 162.425 0 162.9 15 ;
