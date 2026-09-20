@@ -45,21 +45,22 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.5 --include-drafts
+ipm install CF_BGR --version 0.2.6 --include-drafts
 ```
 
 Until the marketplace listing is published, install from a local catalog
 override the same way `cf-bgr-test-project` does:
 
 ```bash
-ipm install CF_BGR --version 0.2.5 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.6 --include-drafts --local-file ip/catalog.json
 ```
 
 Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
 P&R, and `layout/gds/CF_BGR.gds` / `layout/mag/CF_BGR.mag` for the public wrap.
-`CF_BGR_core` is the analog leaf (empty Verilog, pin-only abstract). ChipFoundry
-substitutes vault GDS into `CF_BGR_core` at tapeout. `timing/lib/` is the
-characterized analog view; P&R uses the wrap LEF (`vpwr` / `vgnd` only).
+`CF_BGR_core` is the analog leaf (pin-only abstract). ChipFoundry substitutes
+vault GDS into `CF_BGR_core` at tapeout. Functional sim uses
+`verify/beh_model/CF_BGR_core.v`. `timing/lib/` is the characterized analog
+view; P&R uses the wrap LEF (`vpwr` / `vgnd` only).
 
 ## Features
 
@@ -269,7 +270,9 @@ startup.
 - Trim range is not symmetrical; it was centered from measured lots.
 - No DC current drive; overload on `Vout` will pull the reference.
 - Power-down is functional disable, not a supply switch. Leakage remains.
-- Verilog in `hdl/gl/CF_BGR.v` is a structural wrap around an empty `CF_BGR_core` blackbox, not a SPICE-accurate model.
+- Verilog in `hdl/gl/CF_BGR.v` is a structural wrap around `CF_BGR_core`.
+  P&R uses the empty `hdl/gl` blackbox. Functional sim uses
+  `verify/beh_model/CF_BGR_core.v` (ideal 1.2 V / 2.375 µA / 3 µA, not SPICE).
 - Public wrap uses Sky130 `prBoundary` 235/4, OBS on li1/met1/met2 blockage datatype 10, a 2 µm-inset `dnwell` (64/18), fom/poly waffleDrop, north-halo met3 PG straps, full-height met4 `vpwr`/`vgnd`, and a Magic `layout/mag` view. Analog leaf views are `CF_BGR_core`.
 - Companion cells (trim buffer, 5 µA buffers, VREF/VCM buffers) are not shipped in this package.
 
@@ -293,3 +296,4 @@ a run returns.
 | 0.2.3 | 2026-09-04 | SRAM-style PG wrap: analog leaf is `CF_BGR_core`; customer `CF_BGR` exposes `vpwr`/`vgnd` with met3 straps and full-height met4. Hierarchical LVS on public views is clean. |
 | 0.2.4 | 2026-09-18 | Magic-port extract labels so precheck LVS unique-matches wrap pins. |
 | 0.2.5 | 2026-09-19 | Relocate wrap Magic-port labels onto vendor pads of PR stems. |
+| 0.2.6 | 2026-09-20 | Ship an ideal `verify/beh_model` core (1.2 V / 2.375 µA / 3 µA). |
