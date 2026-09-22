@@ -45,14 +45,14 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.6 --include-drafts
+ipm install CF_BGR --version 0.2.7 --include-drafts
 ```
 
 Until the marketplace listing is published, install from a local catalog
 override the same way `cf-bgr-test-project` does:
 
 ```bash
-ipm install CF_BGR --version 0.2.6 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.7 --include-drafts --local-file ip/catalog.json
 ```
 
 Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
@@ -297,3 +297,4 @@ a run returns.
 | 0.2.4 | 2026-09-18 | Magic-port extract labels so precheck LVS unique-matches wrap pins. |
 | 0.2.5 | 2026-09-19 | Relocate wrap Magic-port labels onto vendor pads of PR stems. |
 | 0.2.6 | 2026-09-20 | Ship an ideal `verify/beh_model` core (1.2 V / 2.375 µA / 3 µA). |
+| 0.2.7 | 2026-09-21 | Core waffleDrop, inset dnwell, li/met1/met2 blockage, and slotted dummy poly/diff for tapeout pd/f1. |
