@@ -2,9 +2,9 @@
 
 > Bandgap Reference
 
-Draft for designer review. Electrical values below are transcribed from the
-packaging source extract. The public GDS is an abstract; ChipFoundry
-substitutes protected full geometry at tapeout.
+Electrical values below are transcribed from the packaging source extract.
+The public GDS is an abstract; ChipFoundry substitutes protected full
+geometry at tapeout.
 
 This package ships `CF_BGR`, the customer integration cell, and
 `CF_BGR_core`, the analog leaf. Instantiate `CF_BGR`.
@@ -45,14 +45,7 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.8 --include-drafts
-```
-
-Until the marketplace listing is published, install from a local catalog
-override the same way `cf-bgr-test-project` does:
-
-```bash
-ipm install CF_BGR --version 0.2.8 --include-drafts --local-file ip/catalog.json
+ipm install CF_BGR --version 0.2.9
 ```
 
 Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
@@ -299,3 +292,4 @@ a run returns.
 | 0.2.6 | 2026-09-20 | Ship an ideal `verify/beh_model` core (1.2 V / 2.375 µA / 3 µA). |
 | 0.2.7 | 2026-09-21 | Core waffleDrop, inset dnwell, li/met1/met2 blockage, and slotted dummy poly/diff for tapeout pd/f1. |
 | 0.2.8 | 2026-09-25 | Core `cmm1`/`cmm2` waffleDrop (62/24, 105/52) so fillgen does not overwrite analog. LI fill-block remains `li1.blockage` 67/10. |
+| 0.2.9 | 2026-09-25 | Customer README. Marketplace listing is published. |
