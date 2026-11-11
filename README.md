@@ -45,7 +45,7 @@ production trim, 7-bit INL/curvature trim, and a startup-boost path.
 
 ```bash
 pip install cf-ipm
-ipm install CF_BGR --version 0.2.10
+ipm install CF_BGR --version 0.2.11
 ```
 
 Use `hdl/gl/CF_BGR.v` as the customer blackbox, `layout/lef/CF_BGR.lef` for
@@ -294,3 +294,4 @@ a run returns.
 | 0.2.8 | 2026-09-25 | Core `cmm1`/`cmm2` waffleDrop (62/24, 105/52) so fillgen does not overwrite analog. LI fill-block remains `li1.blockage` 67/10. |
 | 0.2.9 | 2026-09-25 | Customer README. Marketplace listing is published. |
 | 0.2.10 | 2026-11-07 | Leaf GDS carries wafflefill so pre-merge density passes. WaffleDrop still keeps chip fill out of the block. |
+| 0.2.11 | 2026-11-11 | Signal LEF ports stay on the outer 6.9 µm; the inner halo is sealed so parent routes cannot cross pin stems. |
